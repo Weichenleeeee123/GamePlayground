@@ -16,10 +16,12 @@ struct ContentView: View {
             
             Spacer()
             
-            // 书写区域
+            // 书写区域：确保是一个正方形，并居中显示
             CanvasView(isWriting: $isWriting, currentCharacter: $currentCharacter)
-                .frame(height: 200)
-                .border(Color.black, width: 1)
+                .frame(width: 300, height: 300)  // 确保书写区域是正方形
+                .background(Color.white)  // 设置背景色，便于查看书写区域
+                .border(Color.black, width: 1)  // 添加黑色边框
+                .padding(.top, 20)  // 给书写区域添加适当的顶部间距
             
             Spacer()
             
@@ -45,6 +47,9 @@ struct ContentView: View {
                 .padding()
         }
         .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)  // 确保整个内容居中显示
+        .background(Color.gray.opacity(0.1))  // 背景色可以稍微调亮，以便分辨
+        .edgesIgnoringSafeArea(.all)  // 忽略安全区域，确保内容居中
     }
     
     // 确认书写并触发字形演变
@@ -54,7 +59,7 @@ struct ContentView: View {
         let animation = CharacterAnimation()
         animation.animateToOracle(character: currentCharacter) { 
             self.displayedCharacter = "甲骨文"  // 假设字形演变成甲骨文
-            print("字形演变为: \(self.displayedCharacter  "")")  // 控制台输出字形演变结果
+            print("字形演变为: \(self.displayedCharacter)")  // 控制台输出字形演变结果
         }
     }
 }
